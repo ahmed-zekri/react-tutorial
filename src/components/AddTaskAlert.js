@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {Modal, Button, Form} from "react-bootstrap";
+import {Modal, Button, Form, DropdownButton, Dropdown} from "react-bootstrap";
 
 
 const AddTaskAlert = ({addTask}) => {
@@ -13,7 +13,7 @@ const AddTaskAlert = ({addTask}) => {
     return (
         <>
             <Button variant="primary" onClick={handleShow} hidden={show}>
-           Add task
+                Add task
 
             </Button>
 
@@ -33,8 +33,15 @@ const AddTaskAlert = ({addTask}) => {
 
                     <Form.Group className="mb-3">
                         <Form.Label>Day</Form.Label>
-                        <Form.Control type="text" placeholder="Password" value={day}
-                                      onChange={(e) => setDay(e.target.value)}/>
+                        <Form.Select id="dropdown-basic-button" title="Days" value={day} onChange={(e) => setDay(e.target.value)}>
+                            <option value="Monday">Monday</option>
+                            <option value="Tuesday">Tuesday</option>
+                            <option value="Wednesday">Wednesday</option>
+                            <option value="Thursday">Thursday</option>
+                            <option value="Friday">Friday</option>
+                            <option value="Saturday">Saturday</option>
+                            <option value="Sunday">Sunday</option>
+                        </Form.Select>
                     </Form.Group>
 
 
