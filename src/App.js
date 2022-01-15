@@ -1,7 +1,8 @@
-import './App.css';
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
 import {useState} from "react";
+import AddTaskAlert from "./components/AddTaskAlert";
+
 
 const App = () => {
     const [tasks, setTasks] = useState([{
@@ -19,15 +20,34 @@ const App = () => {
     }])
     const deleteTask = (id) => {
 
-       setTasks(tasks.filter(task => task.id !== id))
+        setTasks(tasks.filter(task => task.id !== id))
+
+    }
+
+    const addTask = (text, day) => {
+        setTasks([...tasks, {
+            id: tasks.length + 1,
+            text: text,
+            day: day
+
+        }])
+
+
+    }
+    const changeDateToTuesday = (id) => {
+        setTasks(tasks.map(task =>
+            task.id === id ? {...task, day: 'Tuesday'} : task
+        ))
 
     }
 
 
-    return <div  className='container'><Header  title={"Header"}/>
+    return <div className='container'><Header title={"Header"}/>
+        <AddTaskAlert addTask={addTask}/>
+        {tasks.length > 0 ? <Tasks onToggle={changeDateToTuesday} tasks={tasks} onDelete={deleteTask}/> :
+            <h1>No tasks</h1>}
 
 
-        <Tasks tasks={tasks} onDelete={deleteTask}/>
     </div>
 }
 

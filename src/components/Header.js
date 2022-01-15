@@ -1,12 +1,13 @@
 import PropTypes from "prop-types";
-import Button from "./Button";
+import {Button, Col} from "react-bootstrap";
+
 
 
 const Header = ({title}) => {
     return (
         <header>
             <h1 style={style}>{title}</h1>
-            <Button name={"how"} color={"red"} onClick={()=>alert('how')}/>
+            <Button as={Col} variant="success" hidden={true}>how</Button>
         </header>
     );
 };

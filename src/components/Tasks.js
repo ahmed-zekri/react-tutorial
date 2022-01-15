@@ -1,14 +1,15 @@
 import Task from "./Task";
+import {ListGroup} from "react-bootstrap";
 
 
-const Tasks = ({tasks,onDelete}) => {
+const Tasks = ({tasks,onDelete,onToggle}) => {
 
     return (
         <div>
             <h2>Tasks</h2>
-            <ul>
-               {tasks.map(task => (<Task key={task.id} task={task} onDelete={onDelete} />))}
-            </ul>
+            <ListGroup>
+               {tasks.map(task => (<Task key={task.id} task={task} onDelete={onDelete} onToggle={onToggle} />))}
+            </ListGroup>
         </div>
     )
 
