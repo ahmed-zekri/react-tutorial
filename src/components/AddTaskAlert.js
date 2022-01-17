@@ -6,6 +6,7 @@ const AddTaskAlert = ({addTask}) => {
     const [show, setShow] = useState(false);
     const [text, setText] = useState('New task');
     const [day, setDay] = useState('Monday');
+    const [reminder, setReminder] = useState('08:00');
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -43,6 +44,12 @@ const AddTaskAlert = ({addTask}) => {
                             <option value="Sunday">Sunday</option>
                         </Form.Select>
                     </Form.Group>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Reminder</Form.Label>
+                        <Form.Control type="text" placeholder="Enter reminder" value={reminder}
+                                      onChange={(e) => setReminder(e.target.value)}/>
+
+                    </Form.Group>
 
 
                 </Form></Modal.Body>
@@ -51,7 +58,7 @@ const AddTaskAlert = ({addTask}) => {
                         Close
                     </Button>
                     <Button variant="primary" onClick={() => {
-                        addTask(text, day);
+                        addTask(text, day,reminder);
                         setShow(false);
                     }}>
                         Save Changes

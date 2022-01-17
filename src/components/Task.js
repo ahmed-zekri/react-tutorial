@@ -7,7 +7,7 @@ const Task = ({task, onDelete, onToggle}) => {
 
         <ListGroup.Item className={`${task.day==='Tuesday'?'underline':''}`} onDoubleClick={() => onToggle(task.id)}>{task.text}
             <p>{task.day}<FaTimes onClick={() =>
-                onDelete(task.id)}
+                onDelete(task.id).then(()=>alert('Task deleted'))}
             /></p>
         </ListGroup.Item>
 
