@@ -3,9 +3,13 @@ import Tasks from "./components/Tasks";
 import {useEffect, useState} from "react";
 import AddTaskAlert from "./components/AddTaskAlert";
 import RemoveTaskAlert from "./components/RemoveTaskAlert";
+import Footer from "./components/Footer";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import About from "./components/About";
 
 
 const App = () => {
+
     const [tasks, setTasks] = useState([])
     const [idToDelete, setIdToDelete] = useState(null)
     const [showRemoveTaskAlert, setShowRemoveTaskAlert] = useState(false)
@@ -58,23 +62,37 @@ const App = () => {
 
     }
     const changeDateToTuesday = (id) => {
-        setTasks(tasks.map(task =>
-            task.id === id ? {...task, day: 'Tuesday'} : task
-        ))
+        setTasks(tasks.map(task => task.id === id ? {...task, day: 'Tuesday'} : task))
 
     }
     const hideAlert = () => {
         setShowRemoveTaskAlert(false)
     }
-    return <div className='container'><Header title={"Header"}/>
-        <AddTaskAlert addTask={addTask}/>
-        <RemoveTaskAlert deleteTask={deleteTask} show={showRemoveTaskAlert} taskText={taskTextToDelete}
-                         hideAlert={hideAlert}/>
-        {tasks.length > 0 ? <Tasks onToggle={changeDateToTuesday} tasks={tasks} onDelete={setIdToDeleteState}/> :
-            <h1>No tasks</h1>}
+    return (<Router>
+            <div className='container'><Header title={"Header"}/>
 
 
-    </div>
+                <Routes>
+                    <Route path="/" element={
+                        <>
+                            <AddTaskAlert addTask={addTask}/>
+                            <RemoveTaskAlert deleteTask={deleteTask} show={showRemoveTaskAlert}
+                                             taskText={taskTextToDelete}
+                                             hideAlert={hideAlert}/>
+                            {tasks.length > 0 ?
+                                <Tasks onToggle={changeDateToTuesday} tasks={tasks} onDelete={setIdToDeleteState}/> :
+                                <h1>No tasks</h1>}
+                        </>
+
+                    }/>
+                    <Route path='/about' element={<About/>}/>
+                </Routes>
+                <Footer/>
+
+            </div>
+        </Router>
+
+    )
 }
 
 export default App;
