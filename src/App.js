@@ -9,6 +9,7 @@ const App = () => {
     const [tasks, setTasks] = useState([])
     const [idToDelete, setIdToDelete] = useState(null)
     const [showRemoveTaskAlert, setShowRemoveTaskAlert] = useState(false)
+    const [taskTextToDelete, setTaskTextToDelete] = useState('')
     useEffect(async () => {
         const getTasks = async () => {
             const tasks = await fetchTasks()
@@ -30,6 +31,8 @@ const App = () => {
     const setIdToDeleteState = (id) => {
         setIdToDelete(id)
         setShowRemoveTaskAlert(true)
+        setTaskTextToDelete(tasks.find(task => task.id === id).text)
+
     }
     const deleteTask = () => {
         return new Promise(async () => {
@@ -60,11 +63,13 @@ const App = () => {
         ))
 
     }
-
-
+    const hideAlert = () => {
+        setShowRemoveTaskAlert(false)
+    }
     return <div className='container'><Header title={"Header"}/>
         <AddTaskAlert addTask={addTask}/>
-        <RemoveTaskAlert deleteTask={deleteTask} show={showRemoveTaskAlert}/>
+        <RemoveTaskAlert deleteTask={deleteTask} show={showRemoveTaskAlert} taskText={taskTextToDelete}
+                         hideAlert={hideAlert}/>
         {tasks.length > 0 ? <Tasks onToggle={changeDateToTuesday} tasks={tasks} onDelete={setIdToDeleteState}/> :
             <h1>No tasks</h1>}
 
